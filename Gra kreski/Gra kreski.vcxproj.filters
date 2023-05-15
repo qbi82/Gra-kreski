@@ -39,4 +39,50 @@
       <Filter>Pliki nagłówkowe</Filter>
     </ClInclude>
   </ItemGroup>
+  <ItemGroup>
+    <Image Include="resources\Adams.mask.png">
+      <Filter>Pliki zasobów</Filter>
+    </Image>
+    <Image Include="resources\Car.png">
+      <Filter>Pliki zasobów</Filter>
+    </Image>
+    <Image Include="resources\Car1.png">
+      <Filter>Pliki zasobów</Filter>
+    </Image>
+    <Image Include="resources\Car2.png">
+      <Filter>Pliki zasobów</Filter>
+    </Image>
+    <Image Include="resources\Car3.png">
+      <Filter>Pliki zasobów</Filter>
+    </Image>
+    <Image Include="resources\Car4.png">
+      <Filter>Pliki zasobów</Filter>
+    </Image>
+    <Image Include="resources\Car5.png">
+      <Filter>Pliki zasobów</Filter>
+    </Image>
+    <Image Include="resources\es3-GTŻ.mask.png">
+      <Filter>Pliki zasobów</Filter>
+    </Image>
+    <Image Include="resources\es3-GTŻ.stad.png">
+      <Filter>Pliki zasobów</Filter>
+    </Image>
+    <Image Include="resources\es3-GTŻ.stad1.png">
+      <Filter>Pliki zasobów</Filter>
+    </Image>
+    <Image Include="resources\roblox.png">
+      <Filter>Pliki zasobów</Filter>
+    </Image>
+    <Image Include="resources\roblox1.png">
+      <Filter>Pliki zasobów</Filter>
+    </Image>
+    <Image Include="resources\wybuch.png">
+      <Filter>Pliki zasobów</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="resources\ChunkFive-Regular.otf">
+      <Filter>Pliki zasobów</Filter>
+    </Font>
+  </ItemGroup>
 </Project>

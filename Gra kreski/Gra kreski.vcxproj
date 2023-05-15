@@ -165,6 +165,24 @@
     <ClInclude Include="Gracz.h" />
     <ClInclude Include="MainMenu.h" />
   </ItemGroup>
+  <ItemGroup>
+    <Image Include="resources\Adams.mask.png" />
+    <Image Include="resources\Car.png" />
+    <Image Include="resources\Car1.png" />
+    <Image Include="resources\Car2.png" />
+    <Image Include="resources\Car3.png" />
+    <Image Include="resources\Car4.png" />
+    <Image Include="resources\Car5.png" />
+    <Image Include="resources\es3-GTŻ.mask.png" />
+    <Image Include="resources\es3-GTŻ.stad.png" />
+    <Image Include="resources\es3-GTŻ.stad1.png" />
+    <Image Include="resources\roblox.png" />
+    <Image Include="resources\roblox1.png" />
+    <Image Include="resources\wybuch.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="resources\ChunkFive-Regular.otf" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
