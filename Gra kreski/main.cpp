@@ -11,7 +11,7 @@ int main()
 	{
 		//Update
 		gra.update();
-
+		
 		//Render
 		gra.render();
 	}

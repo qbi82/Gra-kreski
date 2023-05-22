@@ -4,11 +4,12 @@
 
 void Gracz::initTexture()
 {
-	if (this->t_gracz.loadFromFile("resources/Car1.png"))
+	if (!this->t_gracz.loadFromFile("resources/Car2.png"))
 	{
 		std::cout << "Error::Player" << std::endl;
 
 	}
+    sprite.setScale(1.0f, .9f);
 }
 
 void Gracz::initSprite()
@@ -32,6 +33,7 @@ Gracz::~Gracz()
 
 void Gracz::ruch()
 {
+
 
     if (Keyboard::isKeyPressed(Keyboard::Left)) {
         
