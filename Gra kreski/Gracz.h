@@ -1,34 +1,36 @@
 #pragma once
 #include <cmath>
 #include <SFML/Graphics.hpp>
-#include <SFML/System.hpp>
-#include <SFML/Window.hpp>
-#include <SFML/Audio.hpp>
-using namespace sf;
-class Gracz
+
+
+class Gracz : public sf::Sprite
 {
-	double x_1 = 635, y_1 = 640;
-	double speed_1 = 0, angle_1 = 3.14/2;
-	double maxSpeed_1 = 13;
-	double acc_1 = 0.175, dec_1 = 0.4;
-	double turnSpeed_1 = 0.09;
+	
+	
 private:
-
+	double x;
+	double y;
+	double speed;
+	double angle;
+	double maxSpeed;
+	double acc;
+	double dec;
+	double turnSpeed;
 	Sprite sprite;
-	Texture t_gracz;
-
+	sf::Texture t_gracz;
+	int liczba_okrazen;
 
 	void initTexture();
 	void initSprite();
 
 public:
-	
 	Gracz();
-	
 	virtual ~Gracz();
 
+	void setLiczbaOkrzen(int liczba);
+	int getLiczbaOkrzen() ;
 	void ruch();
 	void update();
-	void render(RenderTarget& target);
+	void render(sf::RenderTarget& target);
 };
 
