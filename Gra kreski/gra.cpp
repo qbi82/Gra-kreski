@@ -1,50 +1,10 @@
 #include "gra.h"
+#include <iostream>
+#include <sstream>
 using namespace sf;
 
-void gra::liniaStartu()
-{
-	
-	bool przekroczyl_linie = false;
-	bool pierwsza_iteracja = true;
-	//rysowanie lini mety
-	sf::RectangleShape finishLine(sf::Vector2f(1.0f, 298.0f));
-	finishLine.setPosition(988.0f, 628.0f);
-	finishLine.setFillColor(sf::Color::Green);
-	/*if (t_gracz.getGlobalBounds().intersects(finishLine.getGlobalBounds()) && !przekroczyl_linie) {
-		okrazenia_ilosc++;
-		przekroczyl_linie = true;
-		wskaznik_okrazen.setString("Okrazenie: " + std::to_string(okrazenia_ilosc));
-		clock1.restart();
 
-		czas_startowy_biezacego_okrazenia = czas_okrazenia_gr1.getElapsedTime();
 
-		sf::Time czas_trwania_okrazenia = czas_startowy_biezacego_okrazenia - czas_koncowy_poprzedniego_okrazenia;
-		if (okrazenia_ilosc > 1)
-		{
-			if (pierwsza_iteracja) {
-				czas_najszybszy_gr1 = czas_trwania_okrazenia.asSeconds();
-				pierwsza_iteracja = false;
-			}
-			Czas_najszybszy_Gracza1.setString("Najszybsze okrazenie: " + std::to_string(czas_najszybszy_gr1));
-		}
-		if (okrazenia_ilosc != 1) {
-			CZAS_OKRAZENIA_1.setString("Czas okrazenia " + std::to_string(okrazenia_ilosc) + ": " + std::to_string(czas_trwania_okrazenia.asSeconds()));
-			if (okrazenia_ilosc > 1 && czas_najszybszy_gr1 > czas_trwania_okrazenia.asSeconds())
-			{
-				czas_najszybszy_gr1 = czas_trwania_okrazenia.asSeconds();
-			}
-			czas_koncowy_poprzedniego_okrazenia = czas_startowy_biezacego_okrazenia;
-
-		}
-
-	}*/
-	this->okno.draw(finishLine);
-}
-
-void gra::licznikOkrazen()
-{
-
-}
 
 //private funkc
 void gra::inicjalizacjaWart()
@@ -63,6 +23,7 @@ void gra::inicjalizacjaOkna()
 void gra::inicjalizacjaGracza()
 {
 	this->gracz = new Gracz();
+	this->gracz->setLiczbaOkrzen(0);
 }
 
 gra::gra()
@@ -100,11 +61,8 @@ void gra::initTXT()
 		}
 	}
 
-	wskaznik_okrazen.setFont(font);
-	wskaznik_okrazen.setCharacterSize(40);
-	wskaznik_okrazen.setFillColor(Color::Black);
-	wskaznik_okrazen.setPosition(20, 0);
-	wskaznik_okrazen.setString("Okrazenia: " + std::to_string(okrazenia_ilosc));
+	
+	
 
 	text.setFont(font);
 	text.setCharacterSize(40);
@@ -141,10 +99,6 @@ void gra::initTXT()
 	
 }
 
-void gra::liczenie_okrazen()
-{
-
-}
 
 
 
@@ -170,28 +124,57 @@ const bool gra::running() const
 	return this->okno.isOpen();
 }
 
-void gra::wystartujgre()
-{
-	/*Event e2;
-	while (this->okno.pollEvent(this->e2))
-	{
-		if (e2.type == sf::Event::KeyPressed)
-		{
-			if (e2.key.code == sf::Keyboard::Space)
-			{
-				start = true;
-				switch_help = !switch_help;
-			}
-		}
-	}
 
-	if (switch_help)
+
+
+void gra::rysujLinieMety()
+{
+	finishLine.setSize(sf::Vector2f(1.0f, 280.0f));
+	finishLine.setPosition(988.0f, 628.0f);
+	finishLine.setFillColor(sf::Color::Green);
+	this->okno.draw(finishLine);
+}
+
+void gra::liczOkrazeniaGracza(Gracz& t_gracz)
+{
+	if (t_gracz.getGlobalBounds().intersects(finishLine.getGlobalBounds()) && !przekroczyl_linie)
 	{
-		
-	*/	/*okno.draw(controls_text);
-	}*/
-		
+		int liczba_okrazen = t_gracz.getLiczbaOkrzen() + 1;
+		t_gracz.setLiczbaOkrzen(liczba_okrazen);
+		przekroczyl_linie = true;
+		aktualizujLiczbeOkrzen();
+		clock1.restart();
 	}
+	else if (!t_gracz.getGlobalBounds().intersects(finishLine.getGlobalBounds()))
+	{
+		przekroczyl_linie = false;
+	}
+}
+
+
+void gra::aktualizujLiczbeOkrzen()
+{
+	int liczba_okrazen_w = gracz->getLiczbaOkrzen();
+
+	wskaznik_okrazen.setString("Okrazenia: " + std::to_string(liczba_okrazen_w));
+
+}
+
+
+void gra::renderLiczbaOkrzen()
+{
+	sf::Text wskaznik_okrazen;
+	wskaznik_okrazen.setFont(this->font);
+	wskaznik_okrazen.setCharacterSize(24);
+	wskaznik_okrazen.setFillColor(sf::Color::White);
+	wskaznik_okrazen.setPosition(10.f, 10.f);
+
+	std::stringstream ss;
+	ss << "Liczba okr¹¿eñ: " << this->gracz->getLiczbaOkrzen();
+	wskaznik_okrazen.setString(ss.str());
+
+	this->okno.draw(wskaznik_okrazen);
+}
 
 
 
@@ -199,6 +182,7 @@ void gra::wystartujgre()
 void gra::updateGracz()
 {
 	this->gracz->update();
+	aktualizujLiczbeOkrzen();
 }
 
 void gra::pollEvents()
@@ -233,6 +217,8 @@ void gra::update()
 
 		}
 		this->updateGracz();
+		this->liczOkrazeniaGracza(*gracz);
+		this->renderLiczbaOkrzen();
 	}
 	
 
@@ -256,17 +242,16 @@ void gra::render()
 	this->okno.clear();
 	this->renderback();
 	this->renderPlayer();
-	this->liniaStartu();
-	okno.draw(wskaznik_okrazen);
+	this->rysujLinieMety();
+	this->renderLiczbaOkrzen(); // Dodane wywo³anie renderLiczbaOkrzen()
 	okno.draw(text);
 	okno.draw(CZAS_OKRAZENIA_1);
 	okno.draw(zegar);
-	
 	okno.draw(Czas_najszybszy_Gracza1);
+	
 	this->okno.display();
-	
-	
 }
+
 
 const RenderWindow& gra::getWindow() const
 {
